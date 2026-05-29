@@ -18,6 +18,10 @@ body {
   font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 ::selection {
   background: rgba(252, 211, 77, 0.4);
   color: #fff;

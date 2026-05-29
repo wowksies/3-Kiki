@@ -143,14 +143,10 @@ class Media {
         attribute vec2 uv;
         uniform mat4 modelViewMatrix;
         uniform mat4 projectionMatrix;
-        uniform float uTime;
-        uniform float uSpeed;
         varying vec2 vUv;
         void main() {
           vUv = uv;
-          vec3 p = position;
-          p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.5);
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragment: `
@@ -167,29 +163,41 @@ class Media {
         }
 
         void main() {
-          vec2 ratio = vec2(
-            min((uPlaneSizes.x / uPlaneSizes.y) / (uImageSizes.x / uImageSizes.y), 1.0),
-            min((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0)
-          );
-          vec2 uv = vec2(
-            vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-            vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
-          );
-          vec4 color = texture2D(tMap, uv);
+          float planeAspect = uPlaneSizes.x / uPlaneSizes.y;
+          float imageAspect = uImageSizes.x / uImageSizes.y;
+
+          vec2 uv;
+          if (imageAspect > planeAspect) {
+            // image wider than plane — letterbox top/bottom
+            float scale = planeAspect / imageAspect;
+            uv.x = vUv.x;
+            uv.y = (vUv.y - 0.5) / scale + 0.5;
+          } else {
+            // image taller — pillarbox left/right
+            float scale = imageAspect / planeAspect;
+            uv.x = (vUv.x - 0.5) / scale + 0.5;
+            uv.y = vUv.y;
+          }
+
+          vec3 letterbox = vec3(0.04, 0.04, 0.07);
+          vec3 rgb;
+          if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0 || uImageSizes.x < 1.0) {
+            rgb = letterbox;
+          } else {
+            rgb = texture2D(tMap, uv).rgb;
+          }
 
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
-          float edgeSmooth = 0.002;
+          float edgeSmooth = 0.003;
           float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
 
-          gl_FragColor = vec4(color.rgb, alpha);
+          gl_FragColor = vec4(rgb, alpha);
         }
       `,
       uniforms: {
         tMap: { value: texture },
         uPlaneSizes: { value: [0, 0] },
         uImageSizes: { value: [0, 0] },
-        uSpeed: { value: 0 },
-        uTime: { value: 100 * Math.random() },
         uBorderRadius: { value: this.borderRadius },
       },
       transparent: true,
@@ -243,10 +251,6 @@ class Media {
       }
     }
 
-    this.speed = scroll.current - scroll.last;
-    this.program.uniforms.uTime.value += 0.04;
-    this.program.uniforms.uSpeed.value = this.speed;
-
     const planeOffset = this.plane.scale.x / 2;
     const viewportOffset = this.viewport.width / 2;
     this.isBefore = this.plane.position.x + planeOffset < -viewportOffset;
@@ -290,12 +294,17 @@ class App {
       font = 'bold 30px Figtree',
       scrollSpeed = 2,
       scrollEase = 0.05,
+      onItemClick,
     } = {}
   ) {
     document.documentElement.classList.remove('no-js');
     this.container = container;
     this.scrollSpeed = scrollSpeed;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
+    this.onItemClick = onItemClick;
+    this.uniqueCount = 0;
+    this.dragDistance = 0;
+    this.downOnCanvas = false;
     this.onCheckDebounce = debounce(this.onCheck, 200);
     this.createRenderer();
     this.createCamera();
@@ -342,6 +351,7 @@ class App {
       { image: `https://picsum.photos/seed/8/800/600?grayscale`, text: 'Science Lab' },
     ];
     const galleryItems = items && items.length ? items : defaultItems;
+    this.uniqueCount = galleryItems.length;
     this.mediasImages = galleryItems.concat(galleryItems);
     this.medias = this.mediasImages.map((data, index) => {
       return new Media({
@@ -363,19 +373,33 @@ class App {
     });
   }
   onTouchDown(e) {
+    this.downOnCanvas = e.target === this.gl.canvas;
+    if (!this.downOnCanvas && !(e.touches && e.touches.length)) return;
     this.isDown = true;
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.dragDistance = 0;
   }
   onTouchMove(e) {
     if (!this.isDown) return;
     const x = e.touches ? e.touches[0].clientX : e.clientX;
+    this.dragDistance = Math.abs(this.start - x);
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
     this.scroll.target = this.scroll.position + distance;
   }
   onTouchUp() {
+    const wasDown = this.isDown;
+    const wasOnCanvas = this.downOnCanvas;
+    const dist = this.dragDistance;
     this.isDown = false;
+    this.downOnCanvas = false;
     this.onCheck();
+    if (wasDown && wasOnCanvas && dist < 6 && this.onItemClick && this.uniqueCount > 0) {
+      const w = this.medias && this.medias[0] ? this.medias[0].width : 1;
+      const idx = Math.round(Math.abs(this.scroll.target) / w);
+      const realIdx = ((idx % this.uniqueCount) + this.uniqueCount) % this.uniqueCount;
+      this.onItemClick(realIdx);
+    }
   }
   onWheel(e) {
     const delta = e.deltaY || e.wheelDelta || e.detail;
@@ -457,8 +481,11 @@ export default function CircularGallery({
   font = 'bold 30px Figtree',
   scrollSpeed = 2,
   scrollEase = 0.05,
+  onItemClick,
 }) {
   const containerRef = useRef(null);
+  const clickRef = useRef(onItemClick);
+  clickRef.current = onItemClick;
   useEffect(() => {
     const app = new App(containerRef.current, {
       items,
@@ -468,6 +495,7 @@ export default function CircularGallery({
       font,
       scrollSpeed,
       scrollEase,
+      onItemClick: (i) => clickRef.current && clickRef.current(i),
     });
     return () => {
       app.destroy();
