@@ -6,13 +6,17 @@ import {
   ImageIcon,
   MapPin,
   Sparkles,
+  Star,
   Upload,
+  Users,
 } from 'lucide-react';
 import MemoriesGallery from '@/components/MemoriesGallery';
 import ClassPhotoCard from '@/components/ClassPhotoCard';
+import TeacherTribute from '@/components/TeacherTribute';
 
 const SCHOOL = 'Coláiste na Mí';
 const CLASS_NAME = '3 Kirwan';
+const TEACHER = 'Maistir Kirwan';
 const YEARS = '2023 – 2026';
 
 const classYears = [
@@ -42,6 +46,24 @@ const classYears = [
   },
 ];
 
+const highlights = [
+  {
+    icon: GraduationCap,
+    title: 'Junior Cycle, done',
+    body: 'Three years of homework, copybooks, mocks, and Junior Cert. We made it through every one.',
+  },
+  {
+    icon: Users,
+    title: 'One class, three years',
+    body: 'Same room. Same names called every morning. Same family that grew up together since 1st year.',
+  },
+  {
+    icon: Star,
+    title: 'Built different',
+    body: 'Other classes were just classes. We were 3 Kirwan. There’s a difference and we all know it.',
+  },
+];
+
 export default function HomePage() {
   return (
     <main className="relative bg-[#070713] text-white">
@@ -56,14 +78,23 @@ export default function HomePage() {
             <GraduationCap className="h-5 w-5 text-amber-300" />
             <span>{CLASS_NAME}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/upload"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:border-amber-300/60 hover:bg-white/10"
-            >
-              <Upload className="h-4 w-4" /> Upload
-            </Link>
+          <div className="hidden items-center gap-6 text-sm text-white/70 sm:flex">
+            <a href="#maistir" className="transition hover:text-white">
+              Maistir
+            </a>
+            <a href="#timeline" className="transition hover:text-white">
+              Timeline
+            </a>
+            <a href="#memories" className="transition hover:text-white">
+              Memories
+            </a>
           </div>
+          <Link
+            href="/upload"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:border-amber-300/60 hover:bg-white/10"
+          >
+            <Upload className="h-4 w-4" /> Upload
+          </Link>
         </nav>
 
         <div className="mx-auto flex min-h-[calc(100vh-96px)] max-w-7xl flex-col items-center justify-center px-6 text-center">
@@ -82,8 +113,9 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-6 max-w-2xl text-balance text-base text-white/70 sm:text-lg">
-            A small corner of the internet for our class. Three years at {SCHOOL}, the people we
-            shared them with, and every awkward, brilliant, stupid memory in between.
+            A small corner of the internet for our class. Three years at {SCHOOL} with{' '}
+            <span className="text-amber-200">{TEACHER}</span>, the people we shared them with, and
+            every awkward, brilliant, stupid memory in between.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -103,7 +135,7 @@ export default function HomePage() {
 
           <div className="mt-12 grid w-full max-w-2xl grid-cols-3 gap-4 text-center">
             <Stat value="3" label="years" />
-            <Stat value="1" label="class" />
+            <Stat value="1" label="class · 1 teacher" />
             <Stat value="∞" label="memories" />
           </div>
 
@@ -113,14 +145,35 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* HIGHLIGHTS STRIP */}
+      <section className="border-y border-white/5 bg-white/[0.02] py-12">
+        <div className="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+          {highlights.map((h) => (
+            <div
+              key={h.title}
+              className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-white/20"
+            >
+              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-300/15 text-amber-200">
+                <h.icon className="h-5 w-5" />
+              </div>
+              <h3 className="text-lg font-semibold">{h.title}</h3>
+              <p className="mt-1 text-sm text-white/65">{h.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* MAISTIR KIRWAN */}
+      <TeacherTribute />
+
       {/* CLASS PHOTOS TIMELINE */}
-      <section className="relative mx-auto max-w-7xl px-6 py-24">
+      <section id="timeline" className="relative mx-auto max-w-7xl px-6 py-24">
         <div className="mb-12 max-w-2xl">
           <div className="mb-3 text-xs uppercase tracking-[0.2em] text-amber-300">The timeline</div>
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">From 1st to 3rd year</h2>
           <p className="mt-3 text-white/70">
-            One class photo a year. Same faces, different uniforms, three years of getting taller and
-            (probably) dumber in the best way.
+            One class photo a year. Same faces, different uniforms, three years of getting taller
+            and (probably) dumber in the best way.
           </p>
         </div>
 
@@ -148,7 +201,8 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">Everything else</h2>
               <p className="mt-3 text-white/70">
-                Pics anyone in the class uploaded. Drag, scroll, or swipe to spin through them.
+                Every pic anyone in the class uploaded. Trips, lunches, mocks, randomness. Drag,
+                scroll, or swipe to spin through them.
               </p>
             </div>
             <Link
@@ -165,11 +219,42 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* SIGN-OFF */}
+      <section className="relative overflow-hidden px-6 py-24 text-center">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.10),transparent_60%)]" />
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-4 text-xs uppercase tracking-[0.3em] text-amber-300">Sign-off</div>
+          <h2 className="text-balance text-3xl font-bold leading-tight sm:text-5xl">
+            Three years done. <br className="hidden sm:block" />
+            We were never just another class.
+          </h2>
+          <p className="mt-6 text-balance text-white/65">
+            Wherever everyone ends up next — different schools, different subjects, different
+            lives — this is where 3 Kirwan lives. Drop a memory whenever you remember one. The
+            site stays.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/upload"
+              className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-6 py-3 text-sm font-semibold text-black transition hover:bg-amber-200"
+            >
+              <Upload className="h-4 w-4" /> Add a memory
+            </Link>
+            <a
+              href="#memories"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-amber-300/60 hover:bg-white/10"
+            >
+              <ImageIcon className="h-4 w-4" /> Back to the gallery
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="border-t border-white/5 px-6 py-12 text-center text-sm text-white/50">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-3">
           <div className="inline-flex items-center gap-1.5">
-            Made with <Heart className="h-4 w-4 text-rose-400" /> for {CLASS_NAME}
+            Made with <Heart className="h-4 w-4 text-rose-400" /> for {CLASS_NAME} & {TEACHER}
           </div>
           <div className="inline-flex items-center gap-1.5 text-white/40">
             <MapPin className="h-3 w-3" /> {SCHOOL} · Junior Cycle Class of 2026
