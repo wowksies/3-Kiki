@@ -27,9 +27,9 @@ Site runs at `http://localhost:3000`. Upload form at `/upload`.
 
 | Var | What | Default |
 | --- | --- | --- |
-| `GITHUB_TOKEN` | Fine-grained PAT with `Contents: Read and write` on `wowksies/3-Kirwan` | — (required) |
+| `GITHUB_TOKEN` | Fine-grained PAT with `Contents: Read and write` on `wowksies/3-Kiki` | — (required) |
 | `GITHUB_OWNER` | Repo owner | `wowksies` |
-| `GITHUB_REPO` | Repo name | `3-Kirwan` |
+| `GITHUB_REPO` | Repo name | `3-Kiki` |
 | `GITHUB_BRANCH` | Branch to commit to | `main` |
 | `UPLOAD_PIN` | Shared PIN classmates type on `/upload` | `122334` |
 
@@ -37,7 +37,7 @@ Site runs at `http://localhost:3000`. Upload form at `/upload`.
 
 1. https://github.com/settings/personal-access-tokens/new
 2. **Resource owner:** `wowksies`
-3. **Repository access:** Only select repositories → pick `3-Kirwan`
+3. **Repository access:** Only select repositories → pick `3-Kiki`
 4. **Repository permissions:** Contents → **Read and write**. Metadata → Read-only (auto).
 5. Copy the token, paste into `.env.local` (local) **and** Vercel project env vars (deploy).
 

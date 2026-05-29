@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest';
 
 const owner = process.env.GITHUB_OWNER || 'wowksies';
-const repo = process.env.GITHUB_REPO || '3-Kirwan';
+const repo = process.env.GITHUB_REPO || '3-Kiki';
 const branch = process.env.GITHUB_BRANCH || 'main';
 
 export function getOctokit() {
