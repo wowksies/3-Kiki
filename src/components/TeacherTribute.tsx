@@ -24,13 +24,13 @@ export default function TeacherTribute() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 text-center">
           <div className="mb-3 text-xs uppercase tracking-[0.3em] text-amber-300">
-            The man, the class name
+            The class name
           </div>
           <h2 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
             Maistir Kirwan
           </h2>
           <p className="mt-3 text-sm uppercase tracking-widest text-white/50">
-            Our teacher · 2023 — 2026
+            Our teacher, 2023 to 2026
           </p>
         </div>
 
@@ -66,8 +66,7 @@ export default function TeacherTribute() {
           <div>
             <Quote className="mb-4 h-8 w-8 text-amber-300/70" />
             <blockquote className="text-2xl font-medium leading-relaxed text-white/90 sm:text-3xl">
-              He made us a class, not a class number. Three years later we're still 3 Kirwan —
-              because that's what he built.
+              He made us a class, not just a class number. Three years later we're still 3 Kirwan.
             </blockquote>
 
             <div className="mt-8 flex flex-wrap gap-2">
@@ -83,24 +82,23 @@ export default function TeacherTribute() {
 
             <div className="mt-8 space-y-4 text-white/75">
               <p>
-                Strict in the best way. The kind of strict that turned a room of randomers into a
-                class — actual character, actual standards, actual respect. Half the reason we
-                walked into 3rd year as people instead of just kids in uniforms.
+                Strict, but it worked. He turned a room of randomers from 1st year into a class
+                that actually felt like one. Half the reason we walked into 3rd year sorted out
+                instead of messing about.
               </p>
               <p>
-                He never let us slack off, and he never let us settle for being “just another
-                class on the timetable.” He made us feel like we belonged to something. Other
-                years had their classes; we had Kirwan.
+                Never let us slack off. Never let us settle for being just another class on the
+                timetable. Made us feel like we were part of something proper. Other years had
+                classes. We had Kirwan.
               </p>
               <p>
-                Three years, one teacher, one class. That's not a small thing — that's the whole
-                thing. Thanks, Maistir.
+                Three years, one teacher, one class. Thanks Maistir.
               </p>
             </div>
 
             <div className="mt-10 flex items-center gap-3 text-sm text-white/50">
               <div className="h-px flex-1 bg-white/10" />
-              <span className="uppercase tracking-widest">— 3 Kirwan, Class of 2026</span>
+              <span className="uppercase tracking-widest">3 Kirwan, 2026</span>
               <div className="h-px flex-1 bg-white/10" />
             </div>
           </div>

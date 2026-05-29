@@ -48,9 +48,9 @@ export default function MemoriesGallery() {
   if (items.length === 0) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center text-center text-white/60">
-        <p className="text-lg">No memories uploaded yet.</p>
+        <p className="text-lg">No memories yet.</p>
         <p className="mt-1 text-sm">
-          Be first — head to <span className="text-amber-300">/upload</span>.
+          Be first. Head to <span className="text-amber-300">/upload</span>.
         </p>
         {error && <p className="mt-3 text-xs text-red-400/70">({error})</p>}
       </div>

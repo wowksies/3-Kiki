@@ -65,12 +65,11 @@ export default function UploadPage() {
 
         <header className="mb-10">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-widest text-white/70">
-            <Lock className="h-3 w-3" /> Class-only upload
+            <Lock className="h-3 w-3" /> Class only
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Add a memory</h1>
           <p className="mt-3 text-white/70">
-            Upload a pic from the last three years. It commits straight to our class repo and shows up in the
-            gallery on the homepage.
+            Upload a pic from the last three years. Goes into the gallery on the homepage.
           </p>
         </header>
 
@@ -90,7 +89,7 @@ export default function UploadPage() {
             />
           </Field>
 
-          <Field label="Your name" hint="Shows under the pic. Up to 40 chars.">
+          <Field label="Your name" hint="Shows under the pic.">
             <input
               name="uploader"
               type="text"
@@ -100,7 +99,7 @@ export default function UploadPage() {
             />
           </Field>
 
-          <Field label="Caption" hint="Up to 80 chars. Appears under the photo in the gallery.">
+          <Field label="Caption" hint="What's the pic of?">
             <input
               name="caption"
               type="text"
@@ -110,7 +109,7 @@ export default function UploadPage() {
             />
           </Field>
 
-          <Field label="Photo" hint="JPG / PNG / WebP / GIF / HEIC. Max 8 MB.">
+          <Field label="Photo" hint="JPG, PNG, WebP, GIF or HEIC. Max 8 MB.">
             <label
               htmlFor="file"
               className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-white/20 bg-black/20 px-6 py-10 text-center transition hover:border-amber-300/60 hover:bg-black/30"
@@ -155,14 +154,14 @@ export default function UploadPage() {
               </>
             ) : (
               <>
-                <ShieldCheck className="h-4 w-4" /> Upload to class repo
+                <ShieldCheck className="h-4 w-4" /> Upload
               </>
             )}
           </button>
 
           {status.kind === 'ok' && (
             <p className="rounded-md border border-emerald-400/30 bg-emerald-400/10 p-3 text-sm text-emerald-200">
-              Uploaded. It may take a few seconds before it shows up on the homepage.
+              Uploaded. Refresh the homepage in a few seconds to see it.
             </p>
           )}
           {status.kind === 'error' && (
@@ -174,7 +173,7 @@ export default function UploadPage() {
         </form>
 
         <p className="mt-6 text-center text-xs text-white/40">
-          Photos are public in the GitHub repo. Don't upload anything you wouldn't post in the class group chat.
+          Pics are public on GitHub. Don't upload anything you wouldn't put in the group chat.
         </p>
       </div>
     </main>

@@ -17,14 +17,14 @@ import TeacherTribute from '@/components/TeacherTribute';
 const SCHOOL = 'Coláiste na Mí';
 const CLASS_NAME = '3 Kirwan';
 const TEACHER = 'Maistir Kirwan';
-const YEARS = '2023 – 2026';
+const YEARS = '2023 to 2026';
 
 const classYears = [
   {
     year: '1st Year',
     range: '2023 / 24',
     image: '/class-photos/1st-year.jpg',
-    blurb: 'The year we walked in not knowing anyone. New uniforms, new lockers, new friends.',
+    blurb: 'Walked in not knowing anyone. New uniforms, new lockers, made friends fast.',
     accent: 'from-emerald-400/70 to-emerald-600/40',
     slug: '1st-year',
   },
@@ -32,7 +32,7 @@ const classYears = [
     year: '2nd Year',
     range: '2024 / 25',
     image: '/class-photos/2nd-year.jpg',
-    blurb: 'Class trips, sports days, and finally feeling like we owned the place a bit.',
+    blurb: 'Trips, sports days, started feeling at home in the place.',
     accent: 'from-amber-400/70 to-amber-600/40',
     slug: '2nd-year',
   },
@@ -40,7 +40,7 @@ const classYears = [
     year: '3rd Year',
     range: '2025 / 26',
     image: '/class-photos/3rd-year.jpg',
-    blurb: 'Junior Cert grind, last days of Junior Cycle, and three years done together.',
+    blurb: 'Junior Cert grind. Last year of Junior Cycle. Three years done.',
     accent: 'from-fuchsia-400/70 to-fuchsia-600/40',
     slug: '3rd-year',
   },
@@ -49,18 +49,18 @@ const classYears = [
 const highlights = [
   {
     icon: GraduationCap,
-    title: 'Junior Cycle, done',
-    body: 'Three years of homework, copybooks, mocks, and Junior Cert. We made it through every one.',
+    title: 'Junior Cycle done',
+    body: 'Three years of homework, mocks and the Junior Cert. Got through them all.',
   },
   {
     icon: Users,
     title: 'One class, three years',
-    body: 'Same room. Same names called every morning. Same family that grew up together since 1st year.',
+    body: 'Same room since 1st year. Same names every morning. Same lads.',
   },
   {
     icon: Star,
-    title: 'Built different',
-    body: 'Other classes were just classes. We were 3 Kirwan. There’s a difference and we all know it.',
+    title: '3 Kirwan',
+    body: 'Other years had classes. We had 3 Kirwan.',
   },
 ];
 
@@ -113,9 +113,9 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-6 max-w-2xl text-balance text-base text-white/70 sm:text-lg">
-            A small corner of the internet for our class. Three years at {SCHOOL} with{' '}
-            <span className="text-amber-200">{TEACHER}</span>, the people we shared them with, and
-            every awkward, brilliant, stupid memory in between.
+            Site for our class. Three years at {SCHOOL} with{' '}
+            <span className="text-amber-200">{TEACHER}</span> and everyone in 3 Kirwan. Pics from
+            1st year up to the Junior Cert.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -135,7 +135,7 @@ export default function HomePage() {
 
           <div className="mt-12 grid w-full max-w-2xl grid-cols-3 gap-4 text-center">
             <Stat value="3" label="years" />
-            <Stat value="1" label="class · 1 teacher" />
+            <Stat value="1" label="class, 1 teacher" />
             <Stat value="∞" label="memories" />
           </div>
 
@@ -170,10 +170,9 @@ export default function HomePage() {
       <section id="timeline" className="relative mx-auto max-w-7xl px-6 py-24">
         <div className="mb-12 max-w-2xl">
           <div className="mb-3 text-xs uppercase tracking-[0.2em] text-amber-300">The timeline</div>
-          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">From 1st to 3rd year</h2>
+          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">1st to 3rd year</h2>
           <p className="mt-3 text-white/70">
-            One class photo a year. Same faces, different uniforms, three years of getting taller
-            and (probably) dumber in the best way.
+            One class photo a year. Same faces, different uniforms.
           </p>
         </div>
 
@@ -199,10 +198,10 @@ export default function HomePage() {
           <div className="mb-3 text-xs uppercase tracking-[0.2em] text-amber-300">The memories</div>
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div className="max-w-2xl">
-              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">Everything else</h2>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">Memories</h2>
               <p className="mt-3 text-white/70">
-                Every pic anyone in the class uploaded. Trips, lunches, mocks, randomness. Drag,
-                scroll, or swipe to spin through them.
+                Every pic anyone in the class uploaded. Drag, scroll or swipe. Click one to open
+                it full screen.
               </p>
             </div>
             <Link
@@ -225,13 +224,11 @@ export default function HomePage() {
         <div className="mx-auto max-w-3xl">
           <div className="mb-4 text-xs uppercase tracking-[0.3em] text-amber-300">Sign-off</div>
           <h2 className="text-balance text-3xl font-bold leading-tight sm:text-5xl">
-            Three years done. <br className="hidden sm:block" />
-            We were never just another class.
+            Three years done.
           </h2>
           <p className="mt-6 text-balance text-white/65">
-            Wherever everyone ends up next — different schools, different subjects, different
-            lives — this is where 3 Kirwan lives. Drop a memory whenever you remember one. The
-            site stays.
+            Wherever everyone goes next, this site stays up. Drop a memory whenever one comes back
+            to you.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -254,10 +251,10 @@ export default function HomePage() {
       <footer className="border-t border-white/5 px-6 py-12 text-center text-sm text-white/50">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-3">
           <div className="inline-flex items-center gap-1.5">
-            Made with <Heart className="h-4 w-4 text-rose-400" /> for {CLASS_NAME} & {TEACHER}
+            For {CLASS_NAME} and {TEACHER} <Heart className="h-4 w-4 text-rose-400" />
           </div>
           <div className="inline-flex items-center gap-1.5 text-white/40">
-            <MapPin className="h-3 w-3" /> {SCHOOL} · Junior Cycle Class of 2026
+            <MapPin className="h-3 w-3" /> {SCHOOL}, Junior Cycle 2026
           </div>
         </div>
       </footer>
